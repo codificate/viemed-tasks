@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
-    id "com.apollographql.apollo3"
+    id 'com.apollographql.apollo3'
     id 'dagger.hilt.android.plugin'
     id "androidx.navigation.safeargs.kotlin"
 }
@@ -30,6 +30,14 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+
+            buildConfigField 'String', 'VIEMED_API_URL', "\"https://380odjc5vi.execute-api.us-east-1.amazonaws.com/dev/graphql\""
+        }
+
+        debug {
+            buildConfigField 'String', 'VIEMED_API_URL', "\"https://380odjc5vi.execute-api.us-east-1.amazonaws.com/dev/graphql\""
+            buildConfigField 'String', 'VIEMED_USER_NAME', "\"Servando Reyes\""
+            buildConfigField 'String', 'VIEMED_API_KEY', "\"a595e524-7145-44f9-9233-18410c697a5b\""
         }
     }
 

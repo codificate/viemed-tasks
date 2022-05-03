@@ -10,7 +10,8 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Viemed">
+        android:theme="@style/Theme.Viemed"
+        android:name=".ViemedApplication">
         <activity
             android:name=".MainActivity"
             android:exported="true">
