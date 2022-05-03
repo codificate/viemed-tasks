@@ -1,6 +1,0 @@
-mutation {
-    generateAccessToken(
-        apiKey: "a595e524-7145-44f9-9233-18410c697a5b"
-        userName: "Servando Reyes"
-    )
-}

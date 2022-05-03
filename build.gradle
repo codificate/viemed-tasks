@@ -4,12 +4,15 @@ buildscript {
     repositories {
         google()
         mavenCentral()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
 
     dependencies {
         classpath "com.google.dagger:hilt-android-gradle-plugin:2.38.1"
         classpath "androidx.navigation:navigation-safe-args-gradle-plugin:2.4.2"
-        classpath "com.apollographql.apollo:apollo-gradle-plugin:2.5.6"
+        classpath "com.apollographql.apollo3:apollo-gradle-plugin:3.2.2"
 
     }
 }

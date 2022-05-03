@@ -1,8 +1,0 @@
-mutation {
-    createTask(name:"First Task", note: "This it´s the first task that created for viemed", isDone:false) {
-        id
-        name
-        note
-        isDone
-    }
-}

@@ -3,7 +3,7 @@ plugins {
     id 'kotlin-android'
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
-    id 'com.apollographql.apollo'
+    id "com.apollographql.apollo3"
     id 'dagger.hilt.android.plugin'
     id "androidx.navigation.safeargs.kotlin"
 }
@@ -45,6 +45,7 @@ android {
 
 apollo {
     generateKotlinModels.set(true)
+    packageName.set("com.tasks.viewmed")
 }
 
 dependencies {
@@ -91,8 +92,8 @@ dependencies {
     // Apollo runtime dependency bundles HttpClient
     // and necessary tools to convert queries/mutations
     // to POST calls.
-    implementation("com.apollographql.apollo:apollo-runtime:2.5.6")
+    implementation 'com.apollographql.apollo3:apollo-runtime:3.2.2'
     // Coroutine support for api calls.
     // Apollo has support for RxJava2, RxJava3 as well.
-    implementation("com.apollographql.apollo:apollo-coroutines-support:2.5.6")
+    implementation 'com.apollographql.apollo3:apollo-api:3.2.2'
 }

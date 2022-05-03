@@ -1,8 +1,0 @@
-mutation {
-    updateTaskStatus(id: "task ID", isDone: true) {
-        id
-        name
-        note
-        isDone
-    }
-}
