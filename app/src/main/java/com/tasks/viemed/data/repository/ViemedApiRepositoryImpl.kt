@@ -1,7 +1,7 @@
-package com.tasks.viemed.data
+package com.tasks.viemed.data.repository
 
 import com.apollographql.apollo3.api.ApolloResponse
-import com.tasks.viemed.api.ApolloInstance
+import com.tasks.viemed.data.api.ApolloInstance
 import com.tasks.viemed.domain.ViemedApiRepository
 import com.tasks.viewmed.*
 import kotlinx.coroutines.flow.Flow

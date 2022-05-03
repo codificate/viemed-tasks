@@ -1,7 +1,7 @@
 package com.tasks.viemed.di
 
-import com.tasks.viemed.api.ApolloInstance
-import com.tasks.viemed.data.ViemedApiRepositoryImpl
+import com.tasks.viemed.data.api.ApolloInstance
+import com.tasks.viemed.data.repository.ViemedApiRepositoryImpl
 import com.tasks.viemed.domain.ViemedApiRepository
 import dagger.Module
 import dagger.Provides

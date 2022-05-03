@@ -1,4 +1,4 @@
-package com.tasks.viemed.api
+package com.tasks.viemed.data.api
 
 import com.apollographql.apollo3.ApolloClient
 import com.apollographql.apollo3.exception.ApolloException
