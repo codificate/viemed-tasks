@@ -2,12 +2,13 @@ package com.tasks.viemed.data.repository
 
 import com.apollographql.apollo3.api.ApolloResponse
 import com.tasks.viemed.data.api.ApolloInstance
-import com.tasks.viemed.domain.ViemedApiRepository
+import com.tasks.viemed.domain.repository.ViemedApiRepository
 import com.tasks.viewmed.*
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-class ViemedApiRepositoryImpl @Inject constructor(private val apiService: ApolloInstance.Companion): ViemedApiRepository {
+class ViemedApiRepositoryImpl @Inject constructor(private val apiService: ApolloInstance.Companion):
+    ViemedApiRepository {
 
     override suspend fun fetchTasks(): Flow<ApolloResponse<AllTasksListQuery.Data>> {
         return apiService.BUILDER.query(AllTasksListQuery()).toFlow()

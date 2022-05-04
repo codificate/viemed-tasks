@@ -3,14 +3,13 @@ package com.tasks.viemed.domain.use_cases
 import com.apollographql.apollo3.api.ApolloResponse
 import com.apollographql.apollo3.exception.ApolloException
 import com.tasks.viemed.base.DataResource
-import com.tasks.viemed.domain.ViemedApiRepository
+import com.tasks.viemed.domain.repository.ViemedApiRepository
 import com.tasks.viemed.domain.mapper.TaskAdapter
 import com.tasks.viemed.domain.model.Task
 import com.tasks.viewmed.AllTasksListQuery
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.onEach
-import okhttp3.internal.assertThreadHoldsLock
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject

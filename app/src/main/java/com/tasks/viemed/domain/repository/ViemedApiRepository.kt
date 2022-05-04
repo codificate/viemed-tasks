@@ -1,4 +1,4 @@
-package com.tasks.viemed.domain
+package com.tasks.viemed.domain.repository
 
 import com.apollographql.apollo3.api.ApolloResponse
 import com.tasks.viewmed.*
