@@ -74,11 +74,4 @@ class CreateTaskFragment : Fragment(R.layout.fragment_create_task), CreateTaskSc
         binding.taskLoadingSprinner.visibility = GONE
     }
 
-    private fun backLastScreen() {
-        requireActivity().supportFragmentManager.apply {
-            beginTransaction().remove(this@CreateTaskFragment).commit()
-            popBackStack()
-        }
-    }
-
 }
