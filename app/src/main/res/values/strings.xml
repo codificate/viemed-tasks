@@ -6,4 +6,6 @@
     <string name="add_title_task_hint">Add title</string>
     <string name="add_note_or_task_description">Add note or task description</string>
     <string name="task_title_error">Task title cannot be empty</string>
+    <string name="confirm_dialog">Yes</string>
+    <string name="denegate_dialog_option">No</string>
 </resources>
