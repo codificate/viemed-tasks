@@ -7,4 +7,11 @@
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
+    <color name="text_task_done">#1B693D</color>
+    <color name="task_done_background">#86CDB2</color>
+    <color name="task_todo_background">#E6E6E6</color>
+    <color name="create_new_task_text_label">#30257B</color>
+    <color name="add_title_task_hint">#B6B6B6</color>
+    <color name="content_task">#606060</color>
+    <color name="task_loading_spinner">#30257B</color>
 </resources>

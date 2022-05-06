@@ -16,27 +16,27 @@ import javax.inject.Inject
 
 class CreateTaskUseCase @Inject constructor(private val apiRepository: ViemedApiRepository) {
 
-    operator fun invoke(name: String, note: String): Flow<DataResource<Task>> = flow {
-        try {
-            emit(DataResource.Loading())
-            apiRepository.createTask(name, note).onEach { apolloResponse ->
+    operator fun invoke(token: String, name: String, note: String): Flow<DataResource<Task>> =
+        flow {
+            try {
+                emit(DataResource.Loading())
+                val taskCreatedResponse = apiRepository.createTask(token, name, note)
                 when {
-                    apolloResponse.data != null -> apolloResponse.data?.createTask.toDomain()
+                    taskCreatedResponse.data != null -> taskCreatedResponse.data?.createTask.toDomain()
                         ?.let { emit(DataResource.Success(it)) } ?: kotlin.run {
                         emit(DataResource.Error("An unexpected error occurred creating the task"))
                     }
-                    apolloResponse.hasErrors() -> apolloResponse.errors?.last()?.let {
+                    taskCreatedResponse.hasErrors() -> taskCreatedResponse.errors?.last()?.let {
                         emit(DataResource.Error(it.message))
                     }
                 }
+            } catch (e: ApolloException) {
+                emit(DataResource.Error(e.localizedMessage ?: "An unexpected error occurred"))
+            } catch (e: HttpException) {
+                emit(DataResource.Error(e.localizedMessage ?: "An unexpected error occurred"))
+            } catch (e: IOException) {
+                emit(DataResource.Error("Couldn't reach server. Check your internet connection."))
             }
-        } catch (e: ApolloException) {
-            emit(DataResource.Error(e.localizedMessage ?: "An unexpected error occurred"))
-        } catch (e: HttpException) {
-            emit(DataResource.Error(e.localizedMessage ?: "An unexpected error occurred"))
-        } catch (e: IOException) {
-            emit(DataResource.Error("Couldn't reach server. Check your internet connection."))
         }
-    }
 
 }

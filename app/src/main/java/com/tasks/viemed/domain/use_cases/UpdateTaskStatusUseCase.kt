@@ -14,27 +14,27 @@ import javax.inject.Inject
 
 class UpdateTaskStatusUseCase @Inject constructor(private val apiRepository: ViemedApiRepository) {
 
-    operator fun invoke(taskId: String, status: Boolean): Flow<DataResource<Task>> = flow {
-        try {
-            emit(DataResource.Loading())
-            apiRepository.updateTask(taskId, status).onEach { apolloResponse ->
+    operator fun invoke(token: String, taskId: String, status: Boolean): Flow<DataResource<Task>> =
+        flow {
+            try {
+                emit(DataResource.Loading())
+                val taskUpdatedResponse = apiRepository.updateTask(token, taskId, status)
                 when {
-                    apolloResponse.data != null -> apolloResponse.data?.updateTaskStatus.toDomain()
+                    taskUpdatedResponse.data != null -> taskUpdatedResponse.data?.updateTaskStatus.toDomain()
                         ?.let { emit(DataResource.Success(it)) } ?: kotlin.run {
                         emit(DataResource.Error("An unexpected error occurred updating the task status"))
                     }
-                    apolloResponse.hasErrors() -> apolloResponse.errors?.last()?.let {
+                    taskUpdatedResponse.hasErrors() -> taskUpdatedResponse.errors?.last()?.let {
                         emit(DataResource.Error(it.message))
                     }
                 }
+            } catch (e: ApolloException) {
+                emit(DataResource.Error(e.localizedMessage ?: "An unexpected error occurred"))
+            } catch (e: HttpException) {
+                emit(DataResource.Error(e.localizedMessage ?: "An unexpected error occurred"))
+            } catch (e: IOException) {
+                emit(DataResource.Error("Couldn't reach server. Check your internet connection."))
             }
-        } catch (e: ApolloException) {
-            emit(DataResource.Error(e.localizedMessage ?: "An unexpected error occurred"))
-        } catch (e: HttpException) {
-            emit(DataResource.Error(e.localizedMessage ?: "An unexpected error occurred"))
-        } catch (e: IOException) {
-            emit(DataResource.Error("Couldn't reach server. Check your internet connection."))
         }
-    }
 
 }

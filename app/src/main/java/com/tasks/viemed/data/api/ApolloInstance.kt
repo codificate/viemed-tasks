@@ -15,53 +15,28 @@ import java.io.IOException
 class ApolloInstance {
 
     companion object {
-        val BUILDER: ApolloClient by lazy {
+        val BUILDER: ApolloClient.Builder by lazy {
             apolloClient
         }
 
-        @OptIn(DelicateCoroutinesApi::class)
-        private val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor { chain ->
+        fun setTokenAuthorization(token: String) : OkHttpClient {
+            return OkHttpClient.Builder()
+                .addInterceptor { chain ->
+                    val original = chain.request()
+                    val updatedRequest = original.newBuilder()
+                        .addHeader(
+                            "Authorization",
+                            token
+                        )
+                        .build()
 
-                val original = chain.request()
-                var updatedRequest = chain.request()
-
-                GlobalScope.launch {
-
-                    try {
-                        val tokenResponse = BUILDER.mutation(
-                            GenerateTokenMutation(
-                                BuildConfig.VIEMED_API_KEY,
-                                BuildConfig.VIEMED_USER_NAME
-                            )
-                        ).execute()
-
-                        tokenResponse.data?.let {
-                            updatedRequest = original.newBuilder()
-                                .addHeader(
-                                    "Authorization",
-                                    it.generateAccessToken.toString()
-                                )
-                                .build()
-                        }
-
-                    } catch (e: ApolloException) {
-                        updatedRequest = chain.request()
-                    } catch(e: HttpException) {
-                        updatedRequest = chain.request()
-                    } catch(e: IOException) {
-                        updatedRequest = chain.request()
-                    }
-                }
-
-                chain.proceed(updatedRequest)
-            }.build()
+                    chain.proceed(updatedRequest)
+                }.build()
+        }
 
         private val apolloClient = ApolloClient
             .Builder()
             .serverUrl(BuildConfig.VIEMED_API_URL)
-            .okHttpClient(okHttpClient)
-            .build()
     }
 
 }

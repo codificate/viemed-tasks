@@ -6,9 +6,10 @@ import kotlinx.coroutines.flow.Flow
 
 interface ViemedApiRepository {
 
-    suspend fun fetchTasks(): Flow<ApolloResponse<AllTasksListQuery.Data>>
-    suspend fun createTask(name: String, note: String): Flow<ApolloResponse<CreateNewTaskMutation.Data>>
-    suspend fun updateTask(taskId: String,status: Boolean): Flow<ApolloResponse<UpdateTaskMutation.Data>>
-    suspend fun deleteTask(taskId: String): Flow<ApolloResponse<DeleteTaskMutation.Data>>
+    suspend fun generateToken(): ApolloResponse<GenerateTokenMutation.Data>
+    suspend fun fetchTasks(token: String): ApolloResponse<AllTasksListQuery.Data>
+    suspend fun createTask(token: String, name: String, note: String): ApolloResponse<CreateNewTaskMutation.Data>
+    suspend fun updateTask(token: String, taskId: String,status: Boolean): ApolloResponse<UpdateTaskMutation.Data>
+    suspend fun deleteTask(token: String, taskId: String): ApolloResponse<DeleteTaskMutation.Data>
 
 }

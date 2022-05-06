@@ -2,30 +2,25 @@ package com.tasks.viemed.domain.use_cases
 
 import com.apollographql.apollo3.exception.ApolloException
 import com.tasks.viemed.base.DataResource
-import com.tasks.viemed.domain.mapper.TaskUpdatedAdapter.toDomain
-import com.tasks.viemed.domain.model.Task
 import com.tasks.viemed.domain.repository.ViemedApiRepository
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
-import kotlinx.coroutines.flow.onEach
 import retrofit2.HttpException
 import java.io.IOException
 import javax.inject.Inject
 
-class DeleteTaskUseCase @Inject constructor(private val apiRepository: ViemedApiRepository) {
+class GenerateTokenUseCase @Inject constructor(private val apiRepository: ViemedApiRepository) {
 
-    operator fun invoke(token: String, taskId: String): Flow<DataResource<Boolean>> = flow {
+    operator fun invoke(): Flow<DataResource<String>> = flow {
         try {
             emit(DataResource.Loading())
-            val taskDeletedResponse = apiRepository.deleteTask(token, taskId)
+            val tokenGenerated = apiRepository.generateToken()
             when {
-                taskDeletedResponse.data != null -> taskDeletedResponse.data?.deleteTask
-                    ?.let { emit(DataResource.Success(it)) } ?: kotlin.run {
-                    emit(DataResource.Error("An unexpected error occurred deleting the task"))
-                }
-                taskDeletedResponse.hasErrors() -> taskDeletedResponse.errors?.last()?.let {
+                tokenGenerated.data != null -> emit(DataResource.Success(tokenGenerated.data?.generateAccessToken.orEmpty()))
+                tokenGenerated.hasErrors() -> tokenGenerated.errors?.last()?.let {
                     emit(DataResource.Error(it.message))
                 }
+                else -> emit(DataResource.Error("An error occurred retrieving the token"))
             }
         } catch (e: ApolloException) {
             emit(DataResource.Error(e.localizedMessage ?: "An unexpected error occurred"))

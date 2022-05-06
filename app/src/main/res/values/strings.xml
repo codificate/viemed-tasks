@@ -1,3 +1,9 @@
 <resources>
     <string name="app_name">viemed</string>
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="create_new_task">Create new task</string>
+    <string name="create_task">Create</string>
+    <string name="add_title_task_hint">Add title</string>
+    <string name="add_note_or_task_description">Add note or task description</string>
+    <string name="task_title_error">Task title cannot be empty</string>
 </resources>
